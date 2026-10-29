@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>【完全無料】コンビニはがき名刺ジェネレーター | 登録不要・即日コンビニ印刷</title>
+  <meta name="description" content="緊急で名刺が必要なときに！セブン-イレブン等のコンビニはがき用紙（100×148mm）に名刺2枚を面付け＆裁断トンボ付きで作成できる無料Webツール。郵便番号枠を避ける安全配置対応。個人情報はサーバーに一切送信されません。">
+  <meta name="keywords" content="名刺, コンビニ, はがき, 印刷, セブンイレブン, 即日, 緊急, 名刺作成, 無料, トンボ, 郵便番号枠回避">
+  
+  <!-- OGP / SNS Card -->
+  <meta property="og:title" content="【完全無料】コンビニはがき名刺ジェネレーター | 登録不要・即日印刷">
+  <meta property="og:description" content="はがき1枚に名刺2枚を面付け＆カッター用トンボ付きで自動生成！郵便番号枠を避ける安全配置に対応したWebツール。">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Google Fonts (Noto Sans JP & Noto Serif JP - 300..900すべての太さに完全対応) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&family=Noto+Serif+JP:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="qrcode.min.js"></script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <h1>📇 コンビニはがき名刺ジェネレーター</h1>
+        <span class="badge">登録不要・完全無料</span>
+      </div>
+      <div class="header-links">
+        <button type="button" id="btn-privacy-link" class="header-link-btn">🔒 プライバシー・安全性</button>
+        <button type="button" id="btn-header-guide" class="header-link-btn">📖 印刷ガイド</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- スマホ用 固定ボトムアクションバー -->
+  <div class="mobile-bottom-bar" id="mobile-bottom-bar">
+    <button type="button" id="m-btn-scroll-preview" class="m-btn m-btn-view">
+      👁️ プレビューを見る
+    </button>
+    <button type="button" id="m-btn-download" class="m-btn m-btn-save">
+      💾 はがき印刷画像を保存
+    </button>
+  </div>
+
+  <main class="container">
+    <!-- 左側: 設定・入力パネル -->
+    <section class="panel-left">
+      <!-- 3通りの用途別メインタブ -->
+      <div class="main-mode-tabs">
+        <button class="main-tab-btn active" data-mode="single">
+          📄 片面名刺<br><small>文字入力のみ</small>
+        </button>
+        <button class="main-tab-btn" data-mode="double">
+          📇 両面名刺<br><small>表面＋裏面作成</small>
+        </button>
+        <button class="main-tab-btn" data-mode="upload">
+          🖼️ 自前の<br>画像から<small>画像＋文字重ね</small>
+        </button>
+      </div>
+
+      <!-- ============================================== -->
+      <!-- モード①: 片面名刺（文字入力・表面のみ） -->
+      <!-- ============================================== -->
+      <div id="section-single" class="mode-section active">
+        <div id="single-front-slot">
+          <!-- 表面入力コンテナ（片面・両面表面で動的共有） -->
+          <div id="front-fields-container">
+            <!-- レイアウトプリセット選択 -->
+            <div class="form-group layout-preset-group">
+          <label class="section-label">📐 表面レイアウトプリセット</label>
+          <div class="preset-buttons">
+            <button type="button" class="preset-btn active" data-preset="left">
+              🏢 <strong>左揃えビジネス</strong><br><small>定番・標準スタイル</small>
+            </button>
+            <button type="button" class="preset-btn" data-preset="center">
+              🎯 <strong>名前ど真ん中</strong><br><small>中央揃え</small>
+            </button>
+            <button type="button" class="preset-btn" data-preset="split">
+              ✨ <strong>左右スプリット</strong><br><small>左に名前、右に情報</small>
+            </button>
+            <button type="button" class="preset-btn" data-preset="minimal">
+              🌿 <strong>ミニマル</strong><br><small>余白を活かした配置</small>
+            </button>
+          </div>
+          <p class="drag-hint">💡 <strong>プレビュー画面で文字やQRコードを直接指やマウスでドラッグして好きな位置に動かせます！</strong></p>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label for="font-family">フォント</label>
+            <select id="font-family">
+              <option value="sans-serif">ゴシック体 (モダン・見やすい)</option>
+              <option value="serif">明朝体 (フォーマル・上品)</option>
+            </select>
+          </div>
+          <div class="form-group flex-1">
+            <label>文字色</label>
+            <div class="btn-group-toggle" id="group-text-color-mode">
+              <button type="button" class="text-color-btn active" data-color-mode="default">🎨 デフォルト</button>
+              <button type="button" class="text-color-btn" data-color-mode="black">⬛ 真っ黒</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="contact-header">
+            <label for="theme-color">アクセント色（装飾ライン・裏面タイトル）</label>
+            <button type="button" id="btn-reset-theme-color" class="btn-micro" title="デフォルト色(#1e3a8a)に戻す">🔄 デフォルトに戻す</button>
+          </div>
+          <div class="accent-palette-wrapper">
+            <div class="accent-palette" id="accent-palette">
+              <button type="button" class="accent-swatch active" data-color="#1e3a8a" title="ネイビー（デフォルト）" style="background-color: #1e3a8a;"></button>
+              <button type="button" class="accent-swatch" data-color="#dc2626" title="レッド（赤）" style="background-color: #dc2626;"></button>
+              <button type="button" class="accent-swatch" data-color="#2563eb" title="ブルー（青）" style="background-color: #2563eb;"></button>
+              <button type="button" class="accent-swatch" data-color="#7c3aed" title="パープル（紫）" style="background-color: #7c3aed;"></button>
+              <button type="button" class="accent-swatch" data-color="#059669" title="グリーン（緑）" style="background-color: #059669;"></button>
+              <button type="button" class="accent-swatch" data-color="#d97706" title="オレンジ（橙）" style="background-color: #d97706;"></button>
+              <button type="button" class="accent-swatch" data-color="#78350f" title="ブラウン（茶）" style="background-color: #78350f;"></button>
+              <button type="button" class="accent-swatch" data-color="#1e293b" title="ブラック（墨）" style="background-color: #1e293b;"></button>
+            </div>
+            <div class="color-picker-inline">
+              <input type="color" id="theme-color" value="#1e3a8a" title="自由な色を選択">
+              <span id="color-hex-label">#1e3a8a</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="contact-header">
+            <label for="input-name">氏名 <span class="required">*</span></label>
+            <label class="contact-toggle-label">
+              <span class="toggle-status-text">表示</span>
+              <span class="toggle-switch-sm">
+                <input type="checkbox" id="check-show-name" checked>
+                <span class="toggle-slider-sm"></span>
+              </span>
+            </label>
+          </div>
+          <input type="text" id="input-name" placeholder="山田 太郎" value="山田 太郎">
+        </div>
+
+        <div class="form-group">
+          <div class="contact-header">
+            <label for="input-kana">ふりがな / ローマ字</label>
+            <label class="contact-toggle-label">
+              <span class="toggle-status-text">表示</span>
+              <span class="toggle-switch-sm">
+                <input type="checkbox" id="check-show-kana" checked>
+                <span class="toggle-slider-sm"></span>
+              </span>
+            </label>
+          </div>
+          <input type="text" id="input-kana" placeholder="Taro Yamada" value="TARO YAMADA">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group flex-2">
+            <div class="contact-header">
+              <label for="input-company">会社名 / 屋号 / 所属</label>
+              <label class="contact-toggle-label">
+                <span class="toggle-status-text">表示</span>
+                <span class="toggle-switch-sm">
+                  <input type="checkbox" id="check-show-company" checked>
+                  <span class="toggle-slider-sm"></span>
+                </span>
+              </label>
+            </div>
+            <input type="text" id="input-company" placeholder="株式会社サンプル" value="株式会社サンプル">
+          </div>
+          <div class="form-group flex-1">
+            <div class="contact-header">
+              <label for="input-title">役職 / 肩書</label>
+              <label class="contact-toggle-label">
+                <span class="toggle-status-text">表示</span>
+                <span class="toggle-switch-sm">
+                  <input type="checkbox" id="check-show-title" checked>
+                  <span class="toggle-slider-sm"></span>
+                </span>
+              </label>
+            </div>
+            <input type="text" id="input-title" placeholder="代表取締役" value="代表取締役">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <div class="contact-header">
+              <label for="input-tel">📞 電話番号</label>
+              <label class="contact-toggle-label">
+                <span class="toggle-status-text">表示</span>
+                <span class="toggle-switch-sm">
+                  <input type="checkbox" id="check-show-tel" checked>
+                  <span class="toggle-slider-sm"></span>
+                </span>
+              </label>
+            </div>
+            <input type="tel" id="input-tel" placeholder="090-1234-5678" value="090-1234-5678">
+          </div>
+          <div class="form-group flex-1">
+            <div class="contact-header">
+              <label for="input-email">✉️ メールアドレス</label>
+              <label class="contact-toggle-label">
+                <span class="toggle-status-text">表示</span>
+                <span class="toggle-switch-sm">
+                  <input type="checkbox" id="check-show-email" checked>
+                  <span class="toggle-slider-sm"></span>
+                </span>
+              </label>
+            </div>
+            <input type="email" id="input-email" placeholder="taro@example.com" value="taro@example.com">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="contact-header">
+            <label for="input-url">🌐 Webサイト / SNS / QRコード用URL</label>
+            <label class="contact-toggle-label">
+              <span class="toggle-status-text">表示</span>
+              <span class="toggle-switch-sm">
+                <input type="checkbox" id="check-show-url" checked>
+                <span class="toggle-slider-sm"></span>
+              </span>
+            </label>
+          </div>
+          <input type="url" id="input-url" placeholder="https://example.com" value="https://example.com">
+        </div>
+
+        <div class="form-group">
+          <div class="contact-header">
+            <label for="input-address">📍 住所 (任意)</label>
+            <label class="contact-toggle-label">
+              <span class="toggle-status-text">表示</span>
+              <span class="toggle-switch-sm">
+                <input type="checkbox" id="check-show-address" checked>
+                <span class="toggle-slider-sm"></span>
+              </span>
+            </label>
+          </div>
+          <input type="text" id="input-address" placeholder="東京都渋谷区〇〇 1-2-3">
+        </div>
+
+        <div class="checkbox-group">
+          <label><input type="checkbox" id="check-qr" checked> QRコードを表示する（ドラッグで移動可能）</label>
+          <label><input type="checkbox" id="check-line" checked> 装飾ラインを表示する</label>
+        </div>
+          </div><!-- /#front-fields-container -->
+        </div><!-- /#single-front-slot -->
+      </div>
+
+      <!-- ============================================== -->
+      <!-- モード②: 両面名刺（表面＋裏面作成） -->
+      <!-- ============================================== -->
+      <div id="section-double" class="mode-section">
+        <!-- 表面/裏面 編集切り替えサブタブ -->
+        <div class="double-side-tabs">
+          <button type="button" class="side-tab-btn active" data-side="front">
+            1️⃣ 表面を編集
+          </button>
+          <button type="button" class="side-tab-btn" data-side="back">
+            2️⃣ 裏面を編集
+          </button>
+        </div>
+
+        <div class="double-info-banner">
+          <span>💡 表面・裏面ともにプレビュー上で文字や装飾ラインをドラッグして自由にレイアウトできます。</span>
+        </div>
+
+        <!-- 表面選択時スロット（表面タブ選択時に front-fields-container がここに配置されます） -->
+        <div id="double-front-slot"></div>
+
+        <!-- 裏面編集専用フィールド（裏面選択時に表示） -->
+        <div id="double-back-fields" class="hidden">
+          <div class="form-group layout-preset-group">
+            <label class="section-label">📐 裏面レイアウトプリセット</label>
+            <div class="preset-buttons">
+              <button type="button" class="back-preset-btn active" data-preset="business">
+                🏢 <strong>事業内容型</strong><br><small>業務一覧・メッセージ</small>
+              </button>
+              <button type="button" class="back-preset-btn" data-preset="english">
+                🌐 <strong>英語表記型</strong><br><small>English Version</small>
+              </button>
+              <button type="button" class="back-preset-btn" data-preset="sns_qr">
+                📱 <strong>大型QR型</strong><br><small>SNS・Web誘導</small>
+              </button>
+              <button type="button" class="back-preset-btn" data-preset="minimal_back">
+                🌿 <strong>シンプル枠型</strong><br><small>スッキリしたデザイン</small>
+              </button>
+            </div>
+            <p class="drag-hint">💡 <strong>右のプレビュー画面で裏面の文字やQRコード、装飾ラインも直接ドラッグして動かせます！</strong></p>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label for="back-font-family">フォント（両面共通）</label>
+              <select id="back-font-family">
+                <option value="sans-serif">ゴシック体 (モダン・見やすい)</option>
+                <option value="serif">明朝体 (フォーマル・上品)</option>
+              </select>
+            </div>
+            <div class="form-group flex-1">
+              <label>文字色（両面共通）</label>
+              <div class="btn-group-toggle" id="group-back-text-color-mode">
+                <button type="button" class="back-text-color-btn active" data-color-mode="default">🎨 デフォルト</button>
+                <button type="button" class="back-text-color-btn" data-color-mode="black">⬛ 真っ黒</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="contact-header">
+              <label for="back-theme-color">アクセント色（装飾ライン・タイトル）</label>
+              <button type="button" id="btn-reset-back-theme-color" class="btn-micro" title="デフォルト色(#1e3a8a)に戻す">🔄 デフォルトに戻す</button>
+            </div>
+            <div class="accent-palette-wrapper">
+              <div class="accent-palette" id="back-accent-palette">
+                <button type="button" class="accent-swatch active" data-color="#1e3a8a" title="ネイビー（デフォルト）" style="background-color: #1e3a8a;"></button>
+                <button type="button" class="accent-swatch" data-color="#dc2626" title="レッド（赤）" style="background-color: #dc2626;"></button>
+                <button type="button" class="accent-swatch" data-color="#2563eb" title="ブルー（青）" style="background-color: #2563eb;"></button>
+                <button type="button" class="accent-swatch" data-color="#7c3aed" title="パープル（紫）" style="background-color: #7c3aed;"></button>
+                <button type="button" class="accent-swatch" data-color="#059669" title="グリーン（緑）" style="background-color: #059669;"></button>
+                <button type="button" class="accent-swatch" data-color="#d97706" title="オレンジ（橙）" style="background-color: #d97706;"></button>
+                <button type="button" class="accent-swatch" data-color="#78350f" title="ブラウン（茶）" style="background-color: #78350f;"></button>
+                <button type="button" class="accent-swatch" data-color="#1e293b" title="ブラック（墨）" style="background-color: #1e293b;"></button>
+              </div>
+              <div class="color-picker-inline">
+                <input type="color" id="back-theme-color" value="#1e3a8a" title="自由な色を選択">
+                <span id="back-color-hex-label">#1e3a8a</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="contact-header">
+              <label for="input-back-heading">裏面タイトル / 見出し</label>
+              <label class="contact-toggle-label">
+                <span class="toggle-status-text">表示</span>
+                <span class="toggle-switch-sm">
+                  <input type="checkbox" id="check-show-back-heading" checked>
+                  <span class="toggle-slider-sm"></span>
+                </span>
+              </label>
+            </div>
+            <input type="text" id="input-back-heading" value="BUSINESS / 事業内容" placeholder="BUSINESS / 事業内容">
+          </div>
+
+          <div class="form-group">
+            <div class="contact-header">
+              <label for="input-back-text1">項目1 / サービス名</label>
+              <label class="contact-toggle-label">
+                <span class="toggle-status-text">表示</span>
+                <span class="toggle-switch-sm">
+                  <input type="checkbox" id="check-show-back-text1" checked>
+                  <span class="toggle-slider-sm"></span>
+                </span>
+              </label>
+            </div>
+            <input type="text" id="input-back-text1" value="・Webシステム・アプリ開発" placeholder="・サービス名や業務内容">
+          </div>
+
+          <div class="form-group">
+            <div class="contact-header">
+              <label for="input-back-text2">項目2 / メッセージ</label>
+              <label class="contact-toggle-label">
+                <span class="toggle-status-text">表示</span>
+                <span class="toggle-switch-sm">
+                  <input type="checkbox" id="check-show-back-text2" checked>
+                  <span class="toggle-slider-sm"></span>
+                </span>
+              </label>
+            </div>
+            <input type="text" id="input-back-text2" value="・UI/UXデザイン・各種制作" placeholder="・資格、理念、アピールポイント">
+          </div>
+
+          <div class="form-group">
+            <div class="contact-header">
+              <label for="input-back-text3">項目3 / 補足情報</label>
+              <label class="contact-toggle-label">
+                <span class="toggle-status-text">表示</span>
+                <span class="toggle-switch-sm">
+                  <input type="checkbox" id="check-show-back-text3" checked>
+                  <span class="toggle-slider-sm"></span>
+                </span>
+              </label>
+            </div>
+            <input type="text" id="input-back-text3" value="お気軽にお問い合わせください。" placeholder="・営業時間、SNSアカウント等">
+          </div>
+
+          <div class="form-group">
+            <div class="contact-header">
+              <label for="input-back-text4">項目4 / 追加情報 (任意)</label>
+              <label class="contact-toggle-label">
+                <span class="toggle-status-text">表示</span>
+                <span class="toggle-switch-sm">
+                  <input type="checkbox" id="check-show-back-text4" checked>
+                  <span class="toggle-slider-sm"></span>
+                </span>
+              </label>
+            </div>
+            <input type="text" id="input-back-text4" value="TEL: 090-1234-5678 / 受付 9:00〜18:00" placeholder="・追加メッセージ、連絡先、営業時間など">
+          </div>
+
+          <div class="form-group">
+            <label for="input-back-qr-url">裏面QRコード用URL (任意)</label>
+            <input type="url" id="input-back-qr-url" placeholder="https://example.com" value="https://example.com">
+          </div>
+
+          <div class="checkbox-group">
+            <label><input type="checkbox" id="check-back-line" checked> 装飾ラインを表示する（ドラッグ移動可能）</label>
+            <label><input type="checkbox" id="check-back-qr" checked> 裏面にQRコードを表示する（ドラッグ移動可能）</label>
+            <label><input type="checkbox" id="check-back-border" checked> 裏面に飾り枠を表示する</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================== -->
+      <!-- モード③: 外部画像ファイルから配置 -->
+      <!-- ============================================== -->
+      <div id="section-upload" class="mode-section">
+        <div class="upload-mode-selector">
+          <label><input type="radio" name="upload_type" value="single" checked> 表面のみ（同じ画像を上下に2枚印刷）</label>
+          <label><input type="radio" name="upload_type" value="double"> 両面用（表面画像と裏面画像を別々に配置）</label>
+        </div>
+
+        <div class="form-group">
+          <label id="label-file-top">名刺画像ファイル（表面 / 背景）</label>
+          <div class="drop-zone" id="drop-zone-top">
+            <input type="file" id="file-top" accept="image/*" class="file-input">
+            <div class="drop-msg" id="drop-msg-top">
+              <span class="icon">📁</span>
+              <p>画像ファイルをタップまたはドラッグして選択</p>
+              <small>Canva等の背景画像、ロゴ入り画像、名刺画像</small>
+            </div>
+            <img id="preview-img-top" class="upload-preview hidden" alt="Top Card">
+          </div>
+          <div id="upload-clear-top-wrapper" class="hidden" style="margin-top:4px; text-align:right;">
+            <button type="button" id="btn-clear-img-top" class="btn-micro">✕ 画像を解除して白地に戻す</button>
+          </div>
+        </div>
+
+        <div class="form-group hidden" id="group-bottom-upload">
+          <label>名刺画像ファイル（裏面用）</label>
+          <div class="drop-zone" id="drop-zone-bot">
+            <input type="file" id="file-bot" accept="image/*" class="file-input">
+            <div class="drop-msg" id="drop-msg-bot">
+              <span class="icon">📁</span>
+              <p>裏面用画像を選択</p>
+            </div>
+            <img id="preview-img-bot" class="upload-preview hidden" alt="Bottom Card">
+          </div>
+          <div id="upload-clear-bot-wrapper" class="hidden" style="margin-top:4px; text-align:right;">
+            <button type="button" id="btn-clear-img-bot" class="btn-micro">✕ 画像を解除</button>
+          </div>
+        </div>
+
+        <!-- 画像の上に文字を乗せる設定パネル -->
+        <div class="overlay-text-panel">
+          <div class="overlay-panel-header">
+            <h4>✍️ 画像の上に名前や文字を重ねる</h4>
+            <label class="toggle-switch">
+              <input type="checkbox" id="check-overlay-text" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div id="overlay-text-controls">
+            <p class="overlay-hint">
+              💡 <strong>画像を読み込んだ後、右のプレビュー画面で名前や連絡先を直接ドラッグして、画像のお好みの位置に合わせられます！</strong>
+            </p>
+
+            <div class="form-row">
+              <div class="form-group flex-1">
+                <label>文字の基本色</label>
+                <div class="btn-group-toggle">
+                  <button type="button" class="btn-text-color active" data-color="#0f172a">⚫ 黒文字</button>
+                  <button type="button" class="btn-text-color" data-color="#ffffff">⚪ 白文字</button>
+                </div>
+              </div>
+              <div class="form-group flex-1">
+                <label for="upload-theme-color">アクセント色</label>
+                <input type="color" id="upload-theme-color" value="#1e3a8a">
+              </div>
+            </div>
+
+            <!-- 画像の上に重ねるテキストフォーム ＆ 個別ON/OFFスイッチ -->
+            <div class="overlay-form-fields">
+              <div class="form-row">
+                <div class="form-group flex-1">
+                  <div class="contact-header">
+                    <label for="upload-input-name">氏名 <span class="required">*</span></label>
+                    <label class="contact-toggle-label">
+                      <span class="toggle-status-text">表示</span>
+                      <span class="toggle-switch-sm">
+                        <input type="checkbox" id="upload-check-show-name" checked>
+                        <span class="toggle-slider-sm"></span>
+                      </span>
+                    </label>
+                  </div>
+                  <input type="text" id="upload-input-name" placeholder="山田 太郎" value="山田 太郎">
+                </div>
+                <div class="form-group flex-1">
+                  <div class="contact-header">
+                    <label for="upload-input-kana">ふりがな / ローマ字</label>
+                    <label class="contact-toggle-label">
+                      <span class="toggle-status-text">表示</span>
+                      <span class="toggle-switch-sm">
+                        <input type="checkbox" id="upload-check-show-kana" checked>
+                        <span class="toggle-slider-sm"></span>
+                      </span>
+                    </label>
+                  </div>
+                  <input type="text" id="upload-input-kana" placeholder="Taro Yamada" value="TARO YAMADA">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group flex-2">
+                  <div class="contact-header">
+                    <label for="upload-input-company">会社名 / 所属</label>
+                    <label class="contact-toggle-label">
+                      <span class="toggle-status-text">表示</span>
+                      <span class="toggle-switch-sm">
+                        <input type="checkbox" id="upload-check-show-company" checked>
+                        <span class="toggle-slider-sm"></span>
+                      </span>
+                    </label>
+                  </div>
+                  <input type="text" id="upload-input-company" placeholder="株式会社サンプル" value="株式会社サンプル">
+                </div>
+                <div class="form-group flex-1">
+                  <div class="contact-header">
+                    <label for="upload-input-title">役職 / 肩書</label>
+                    <label class="contact-toggle-label">
+                      <span class="toggle-status-text">表示</span>
+                      <span class="toggle-switch-sm">
+                        <input type="checkbox" id="upload-check-show-title" checked>
+                        <span class="toggle-slider-sm"></span>
+                      </span>
+                    </label>
+                  </div>
+                  <input type="text" id="upload-input-title" placeholder="代表取締役" value="代表取締役">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group flex-1">
+                  <div class="contact-header">
+                    <label for="upload-input-tel">📞 電話番号</label>
+                    <label class="contact-toggle-label">
+                      <span class="toggle-status-text">表示</span>
+                      <span class="toggle-switch-sm">
+                        <input type="checkbox" id="upload-check-show-tel" checked>
+                        <span class="toggle-slider-sm"></span>
+                      </span>
+                    </label>
+                  </div>
+                  <input type="tel" id="upload-input-tel" placeholder="090-1234-5678" value="090-1234-5678">
+                </div>
+                <div class="form-group flex-1">
+                  <div class="contact-header">
+                    <label for="upload-input-email">✉️ メールアドレス</label>
+                    <label class="contact-toggle-label">
+                      <span class="toggle-status-text">表示</span>
+                      <span class="toggle-switch-sm">
+                        <input type="checkbox" id="upload-check-show-email" checked>
+                        <span class="toggle-slider-sm"></span>
+                      </span>
+                    </label>
+                  </div>
+                  <input type="email" id="upload-input-email" placeholder="taro@example.com" value="taro@example.com">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="contact-header">
+                  <label for="upload-input-url">🌐 Webサイト / SNS / QR用URL</label>
+                  <label class="contact-toggle-label">
+                    <span class="toggle-status-text">表示</span>
+                    <span class="toggle-switch-sm">
+                      <input type="checkbox" id="upload-check-show-url" checked>
+                      <span class="toggle-slider-sm"></span>
+                    </span>
+                  </label>
+                </div>
+                <input type="url" id="upload-input-url" placeholder="https://example.com" value="https://example.com">
+              </div>
+
+              <div class="form-group">
+                <div class="contact-header">
+                  <label for="upload-input-address">📍 住所 (任意)</label>
+                  <label class="contact-toggle-label">
+                    <span class="toggle-status-text">表示</span>
+                    <span class="toggle-switch-sm">
+                      <input type="checkbox" id="upload-check-show-address" checked>
+                      <span class="toggle-slider-sm"></span>
+                    </span>
+                  </label>
+                </div>
+                <input type="text" id="upload-input-address" placeholder="東京都渋谷区〇〇 1-2-3">
+              </div>
+
+              <div class="checkbox-group">
+                <label><input type="checkbox" id="upload-check-qr" checked> QRコードを表示する（ドラッグ移動可能）</label>
+                <label><input type="checkbox" id="upload-check-line" checked> 装飾ラインを表示する</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 共通印刷オプション（折りたたみ式アコーディオン） -->
+      <details class="options-box print-options-accordion" id="print-options-details">
+        <summary class="accordion-summary">
+          <span class="accordion-title">⚙️ <strong>詳細印刷・裁断オプション</strong>（枠線・トンボ・用紙回転・解像度など）</span>
+          <span class="accordion-arrow">▼</span>
+        </summary>
+        <div class="accordion-body">
+          <!-- ★ 郵便番号枠回避オプション（デフォルトON） -->
+          <div class="checkbox-group" id="opt-avoid-postal-group">
+            <label>
+              <input type="checkbox" id="opt-avoid-postal" checked>
+              <strong>📮 郵便番号枠を避ける（少し下に配置）</strong>
+            </label>
+            <span class="hint">はがきの赤い郵便番号枠に名刺が被らないよう、上余白を広げて全体を約6mm下に下げます。両面印刷時の裏表の位置も自動でピッタリ一致します。</span>
+          </div>
+
+          <div class="checkbox-group" id="opt-rotate-group">
+            <label>
+              <input type="checkbox" id="opt-rotate">
+              <strong>【印刷ズレ防止】裏面用180度回転</strong>
+              <span class="hint">コンビニ機の給紙クセ（左右の寄り）を相殺するため天地を逆にします</span>
+            </label>
+          </div>
+
+          <div class="checkbox-group">
+            <label>
+              <input type="checkbox" id="opt-border" checked>
+              カッター/ハサミ用ガイド枠線（薄いグレー）を表示
+            </label>
+          </div>
+
+          <div class="checkbox-group">
+            <label>
+              <input type="checkbox" id="opt-cropmarks" checked>
+              プロ仕様トンボ（トリムマーク）を表示
+            </label>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label for="opt-gap">名刺間の間隔</label>
+              <select id="opt-gap">
+                <option value="0" selected>0mm (ピッタリ接合・カット5回で最少)</option>
+                <option value="4">4mm (余裕マージン)</option>
+              </select>
+            </div>
+            <div class="form-group flex-1">
+              <label for="opt-dpi">解像度</label>
+              <select id="opt-dpi">
+                <option value="1200">1200 DPI (超高解像度・プロ印刷用)</option>
+                <option value="600" selected>600 DPI (最高画質・標準推奨)</option>
+                <option value="300">300 DPI (軽量)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- アクションボタン群 -->
+      <div class="action-buttons">
+        <!-- 片面・画像モード用 -->
+        <div id="actions-single">
+          <button id="btn-download-hagaki" class="btn btn-primary">
+            💾 はがき印刷用画像を保存 (PNG)
+          </button>
+        </div>
+
+        <!-- 両面名刺用アクション -->
+        <div id="actions-double" class="hidden double-actions">
+          <button id="btn-download-front" class="btn btn-primary">
+            💾 ① 表面用はがき画像を保存 (PNG)
+          </button>
+          <button id="btn-download-back" class="btn btn-secondary">
+            💾 ② 裏面用はがき画像を保存 (180度回転済)
+          </button>
+        </div>
+
+        <button id="btn-download-card" class="btn btn-outline">
+          🏷️ 表示中の名刺単体画像を保存 (PNG)
+        </button>
+        <button id="btn-show-guide" class="btn btn-info">
+          📖 コンビニでの印刷・カット手順を見る
+        </button>
+        <div class="rule-banner-mobile">
+          <p>💡 <strong>印刷時の重要ルール:</strong><br>セブン-イレブン等のマルチコピー機アプリでは、プリント設定で<strong>「ちょっと小さめ」を必ず【OFF（そのまま）】</strong>にしてください（ONだと原寸より縮小されます）。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 右側: リアルタイムプレビュー＆エディタ（画面固定） -->
+    <section class="panel-right" id="preview-section">
+      <!-- ビューモード切り替えタブ -->
+      <div class="view-mode-tabs" id="view-mode-tabs">
+        <button type="button" class="view-tab-btn active" id="tab-view-card" data-view="card">
+          🏷️ 名刺デザイン編集
+        </button>
+        <button type="button" class="view-tab-btn" id="tab-view-hagaki" data-view="hagaki">
+          📄 はがき全体（2面付け）
+        </button>
+        <span id="canvas-size-info" class="size-info-tag">91 × 55 mm</span>
+
+        <!-- プレビュー拡大縮小コントロール -->
+        <div class="preview-zoom-bar" id="preview-zoom-bar">
+          <button type="button" id="btn-zoom-out" class="btn-zoom" title="プレビューを縮小 (➖)">➖</button>
+          <button type="button" id="btn-zoom-reset" class="btn-zoom btn-zoom-level" title="100%（標準フィット）に戻す">100%</button>
+          <button type="button" id="btn-zoom-in" class="btn-zoom" title="プレビューを拡大 (➕)">➕</button>
+          <button type="button" id="btn-zoom-fit" class="btn-zoom" title="画面サイズに合わせる">100%</button>
+        </div>
+
+        <button type="button" id="btn-toggle-preview-size" class="btn-micro preview-toggle-btn" title="プレビュー枠の折りたたみ切り替え">
+          <span id="preview-toggle-icon">🔼</span> <span id="preview-toggle-text">折りたたむ</span>
+        </button>
+      </div>
+
+      <!-- プレビューキャンバスコンテナ -->
+      <div class="preview-container" id="preview-container">
+        <!-- オフスクリーン高精細キャンバス -->
+        <canvas id="export-canvas" style="display:none;"></canvas>
+        <canvas id="card-export-canvas" style="display:none;"></canvas>
+        <canvas id="back-card-export-canvas" style="display:none;"></canvas>
+
+        <div class="canvas-wrapper" id="canvas-wrapper">
+          <canvas id="preview-canvas" tabindex="0"></canvas>
+        </div>
+
+        <!-- ドラッグ操作ヒント -->
+        <div id="drag-overlay-tip" class="drag-overlay-tip">
+          <span class="hint-text-pc">👆 タップで選択・ドラッグや十字キーで移動</span>
+          <span class="hint-text-mobile">👆 タップで選択・ドラッグで移動</span>
+        </div>
+      </div>
+
+      <!-- ★ 選択中要素の統合エディタ（クイック文字編集 ＆ 位置・揃え・サイズ調整） -->
+      <div id="element-editor-panel" class="element-editor-panel">
+        <div class="editor-header-row" id="quick-edit-bar">
+          <div class="editor-input-group">
+            <span class="quick-edit-tag" id="quick-edit-tag">氏名</span>
+            <strong id="selected-element-name" style="display:none;">氏名</strong>
+            <input type="text" id="quick-edit-input" class="quick-edit-input" placeholder="タップした文字をここですぐ編集できます" value="山田 太郎">
+            <button type="button" id="btn-jump-to-input" class="btn-micro" title="左のフォーム該当位置へ移動"><span class="btn-icon">⬇️</span><span class="btn-label">フォームへ</span></button>
+          </div>
+          <div class="toolbar-micro-actions">
+            <button type="button" id="btn-undo" class="btn-micro" title="移動を元に戻す (Ctrl+Z)" disabled style="opacity: 0.45;"><span class="btn-icon">↩️</span><span class="btn-label">戻す</span></button>
+            <button type="button" id="btn-redo" class="btn-micro" title="やり直す (Ctrl+Y)" disabled style="opacity: 0.45;"><span class="btn-icon">↪️</span><span class="btn-label">やり直し</span></button>
+            <button type="button" id="btn-center-element" class="btn-micro" title="水平中央に配置"><span class="btn-icon">🎯</span><span class="btn-label">水平中央</span></button>
+            <button type="button" id="btn-vcenter-element" class="btn-micro" title="垂直中央に配置"><span class="btn-icon">↕️</span><span class="btn-label">垂直中央</span></button>
+            <button type="button" id="btn-close-element-editor" class="btn-micro btn-close-editor" title="調整パネルを閉じる"><span class="btn-icon">✕</span><span class="btn-label">閉じる</span></button>
+          </div>
+        </div>
+
+        <div class="toolbar-controls" id="element-toolbar">
+          <div class="toolbar-item" id="toolbar-item-align">
+            <label>揃え:</label>
+            <div class="btn-group-toggle">
+              <button type="button" class="align-btn" data-align="left">左</button>
+              <button type="button" class="align-btn active" data-align="center">中</button>
+              <button type="button" class="align-btn" data-align="right">右</button>
+            </div>
+          </div>
+          <div class="toolbar-item" id="toolbar-item-weight">
+            <label>太さ:</label>
+            <div class="btn-group-toggle">
+              <button type="button" class="weight-btn" data-weight="300">細め</button>
+              <button type="button" class="weight-btn" data-weight="400">標準</button>
+              <button type="button" class="weight-btn" data-weight="600">中太</button>
+              <button type="button" class="weight-btn active" data-weight="700">太字</button>
+              <button type="button" class="weight-btn" data-weight="900">極太</button>
+            </div>
+          </div>
+          <div class="toolbar-item flex-1" id="toolbar-item-size">
+            <label>サイズ:</label>
+            <input type="range" id="element-size-slider" min="16" max="140" value="96">
+            <span id="element-size-label">96px</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 印刷時の重要ルール（ページ最下部・全体表示） -->
+  <div class="bottom-guide-banner">
+    <div class="guide-summary">
+      <p>💡 <strong>印刷時の重要ルール:</strong> セブン-イレブン等のマルチコピー機アプリでは、プリント設定で<strong>「ちょっと小さめ」を必ず【OFF（そのまま）】</strong>にしてください（ONだと原寸より縮小されます）。</p>
+    </div>
+  </div>
+
+  <!-- フッター -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="#privacy" id="link-footer-privacy">プライバシーポリシー（安全性について）</a>
+        <span class="sep">|</span>
+        <a href="#disclaimer" id="link-footer-disclaimer">免責事項・注意事項</a>
+        <span class="sep">|</span>
+        <a href="#guide" id="link-footer-guide">コンビニ印刷手順</a>
+      </div>
+      <p class="copyright">© コンビニはがき名刺ジェネレーター All Rights Reserved. 個人情報はサーバーに一切送信されません。</p>
+    </div>
+  </footer>
+
+  <!-- 印刷ガイドモーダル -->
+  <div id="guide-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>🖨️ コンビニはがき名刺 印刷＆カッティング完全ガイド</h2>
+        <button id="modal-close" class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="guide-step">
+          <div class="step-num">1</div>
+          <div class="step-desc">
+            <h3>アプリに画像を保存・登録</h3>
+            <p>スマホアプリ<strong>「セブン-イレブン マルチコピー」</strong>を開き、[はがきプリント] → [アプリでプリント設定] → [そのままプリント] を選択。生成したPNG画像（表面用・裏面用）を登録してQRコードを作成します。</p>
+            <p class="caution">⚠️ <strong>最重要:</strong> 設定画面で<strong>「ちょっと小さめ」は必ず【OFF】</strong>にしてください（ONだと名刺が縮小されてしまいます）。</p>
+          </div>
+        </div>
+
+        <div class="guide-step">
+          <div class="step-num">2</div>
+          <div class="step-desc">
+            <h3>セブン-イレブンで印刷</h3>
+            <p>コピー機で「はがきプリント」を選び、QRコードを読み込ませます。</p>
+            <p>用紙はマルチコピー機備え付けの「私製はがき」用紙、または自分で持ち込んだインクジェット・レーザー用はがき用紙を案内に従ってトレイにセットして印刷します。</p>
+          </div>
+        </div>
+
+        <div class="guide-step">
+          <div class="step-num">3</div>
+          <div class="step-desc">
+            <h3>郵便番号枠の回避＆両面印刷の位置合わせ</h3>
+            <p>当ツールの<strong>「📮 郵便番号枠を避ける」</strong>が有効な場合、名刺全体が自動的に約6mm下に配置され、郵便番号の赤枠を完全に避けて印刷されます。</p>
+            <p>両面印刷の場合：</p>
+            <ul>
+              <li>裏面用画像は自動的に180度反転されて出力されます。</li>
+              <li>表面を印刷し終えた用紙を、<strong>天地（上下）を逆にしてトレイにセット</strong>してください。</li>
+              <li>これにより、表面と裏面の印刷位置がズレず、透かしたときにピッタリ一致します！</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="guide-step">
+          <div class="step-num">4</div>
+          <div class="step-desc">
+            <h3>カッターで美しくカット</h3>
+            <p>用意するもの：カッターマット、定規（できれば金属フチ付きカッター定規）、カッター。</p>
+            <ol>
+              <li>まず<strong>左右の縦カット</strong>を行います（用紙端のトンボ線に定規を合わせる）。</li>
+              <li>次に<strong>上下端の横カット</strong>を行います。</li>
+              <li>最後に<strong>中央の横カット</strong>をスパッと入れれば、ぴったり91×55mmの名刺が2枚完成します！</li>
+            </ol>
+            <p class="tip">💡 角丸にしたい場合は、文具店や100円均一の「かどまるPRO」等の角丸パンチを使うとプロ級の仕上がりになります。</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="modal-close-btn2" class="btn btn-primary">閉じる</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- プライバシー・免責事項モーダル -->
+  <div id="privacy-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>🔒 プライバシーポリシー＆免責事項</h2>
+        <button id="privacy-modal-close" class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body policy-body">
+        <h3>1. 個人情報の取り扱い（完全クライアント動作）</h3>
+        <p>当サービス「コンビニはがき名刺ジェネレーター」は、入力された氏名・電話番号・メールアドレス・住所、およびアップロードされた画像を<strong>外部のサーバーに送信・保存・収集することは一切ありません</strong>。</p>
+        <p>すべての画像生成処理・暗号化処理はお客様の端末（ブラウザ内のメモリ）上でのみ完結して実行されます。完全なオフライン状態（機内モード）でも安全にご利用いただけます。</p>
+
+        <h3>2. アクセス解析・Cookieについて</h3>
+        <p>サービスの改善・品質向上のため、匿名のトラフィックデータ（Google Analytics等）を収集する場合があります。これらのデータに個人を特定できる情報は含まれません。</p>
+
+        <h3>3. 免責事項</h3>
+        <ul>
+          <li>当サービスで生成された画像データを用いて生じた印刷不良、各コンビニエンスストアのマルチコピー機の個体差や給紙ズレ、その他の損害に関して、当サイトは一切の責任を負いません。</li>
+          <li>重要な商談や正式な用途で使用される名刺については、あらかじめテスト印刷を行うか、専門の印刷業者様のご利用を推奨いたします。</li>
+          <li>各コンビニエンスストアチェーン様およびサービス名（セブン-イレブン等）は、各社の商標または登録商標です。当サービスは各コンビニ各社様とは提携・関係するものではありません。</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button id="privacy-modal-close-btn2" class="btn btn-primary">閉じる</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
