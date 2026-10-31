@@ -2872,7 +2872,15 @@
   inputToElementMap.forEach((elId, inputEl) => {
     if (inputEl) {
       inputEl.addEventListener("focus", () => {
-        selectElement(elId, true);
+        const isMobile = window.innerWidth <= 960;
+        if (isMobile) {
+          // スマホ版: フォーム入力欄にフォーカスした時はクイック編集パネルを出さない（開いていた場合も閉じる）
+          selectElement(elId, false);
+          closeElementEditor();
+        } else {
+          // PC版: 従来通り選択＆調整パネルを表示
+          selectElement(elId, true);
+        }
       });
     }
   });
