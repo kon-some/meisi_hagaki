@@ -13,6 +13,17 @@
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
 
+  <!-- PWA / Favicon / Web App -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="はがき名刺">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="shortcut icon" href="favicon.ico">
+
   <!-- Google Fonts (Noto Sans JP & Noto Serif JP - 300..900すべての太さに完全対応) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -935,5 +946,13 @@
   </div>
 
   <script src="app.js"></script>
+  <script>
+    // PWA Service Worker 登録
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch(() => {});
+      });
+    }
+  </script>
 </body>
 </html>

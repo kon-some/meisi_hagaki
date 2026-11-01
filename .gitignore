@@ -38,3 +38,9 @@ output/*.pdf
 Thumbs.db
 .vscode/
 .idea/
+
+# Screenshots / Temporary files in root
+/*.png
+/*.jpg
+/*.jpeg
+
