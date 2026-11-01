@@ -2896,7 +2896,15 @@
     }, "image/png");
   }
 
+  // Google Analytics 4 イベント追跡ヘルパー
+  function trackEvent(eventName, params = {}) {
+    if (typeof window.gtag === "function") {
+      window.gtag("event", eventName, params);
+    }
+  }
+
   btnDownloadHagaki.addEventListener("click", () => {
+    trackEvent("download_hagaki", { mode: currentMainMode });
     let topImg = null;
     let botImg = null;
 
@@ -2917,6 +2925,7 @@
 
   // 両面名刺用：表面保存
   btnDownloadFront.addEventListener("click", () => {
+    trackEvent("download_front");
     const frontCard = renderFrontCardCanvas(false);
     renderHagakiCanvas(frontCard, frontCard, false);
     downloadCanvas(exportCanvas, "hagaki_meishi_1_front.png");
@@ -2924,12 +2933,14 @@
 
   // 両面名刺用：裏面保存（自動で180度回転し、用紙天地逆セットで表面と完全一致）
   btnDownloadBack.addEventListener("click", () => {
+    trackEvent("download_back");
     const backCard = renderBackCardCanvas(false);
     renderHagakiCanvas(backCard, backCard, true);
     downloadCanvas(exportCanvas, "hagaki_meishi_2_back_rotated180.png");
   });
 
   btnDownloadCard.addEventListener("click", () => {
+    trackEvent("download_card");
     if (currentMainMode === "double" && currentDoubleSide === "back") {
       const backCard = renderBackCardCanvas(false);
       downloadCanvas(backCard, "meishi_back_single.png");
@@ -2937,6 +2948,16 @@
       const frontCard = renderFrontCardCanvas(false);
       downloadCanvas(frontCard, "meishi_front_single.png");
     }
+  });
+
+  // アフィリエイトリンクのクリック追跡
+  document.querySelectorAll('a[rel*="sponsored"]').forEach((link) => {
+    link.addEventListener("click", () => {
+      trackEvent("click_affiliate", {
+        link_url: link.href,
+        link_text: (link.textContent || "").trim().slice(0, 40)
+      });
+    });
   });
 
   // モバイル用アクション
