@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <!-- Google tag (gtag.js) - Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-R2P1RJMRG0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-R2P1RJMRG0');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>【完全無料】インボイス対応 請求書・領収書ジェネレーター | 登録不要・コンビニ印刷対応</title>
+  <meta name="description" content="登録不要・完全無料で即発行！適格請求書（インボイス制度対応）の請求書・領収書がスマホやPCで簡単作成。消費税（10%/軽減8%）自動計算、社印スタンプ対応、コンビニ普通紙印刷（A4）に完全対応。">
+  <meta name="keywords" content="請求書, 領収書, インボイス対応, 無料, スマホ, 作成, コンビニ印刷, 個人事業主, フリーランス, 適格請求書">
+
+  <!-- OGP / SNS Card -->
+  <meta property="og:title" content="【完全無料】インボイス対応 請求書・領収書ジェネレーター | 登録不要・即日印刷">
+  <meta property="og:description" content="インボイス制度対応の請求書・領収書がスマホで今すぐ作れる！登録不要・完全無料。コンビニ印刷対応。">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 姉妹ツールナビゲーションバー -->
+  <nav class="sister-tools-nav">
+    <div class="nav-inner">
+      <span class="nav-label">📋 無料便利ツール:</span>
+      <a href="../" class="tool-link">📇 コンビニ名刺</a>
+      <a href="../resume/" class="tool-link">📄 履歴書作成</a>
+      <a href="./" class="tool-link active">🧾 請求書・領収書</a>
+      <a href="../taishoku/" class="tool-link">✉️ 退職届・退職願</a>
+    </div>
+  </nav>
+
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <h1>🧾 インボイス対応 請求書・領収書メーカー</h1>
+        <span class="badge">適格請求書対応・完全無料</span>
+      </div>
+      <div class="header-links">
+        <button type="button" id="btn-guide-modal" class="header-link-btn">📖 印刷手順</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- 左側: 入力フォーム -->
+    <section class="panel-left">
+      <!-- 書類種別 -->
+      <div class="form-card">
+        <h2>書類の種類</h2>
+        <div class="type-selector">
+          <label class="radio-label">
+            <input type="radio" name="doc_type" value="invoice" checked>
+            <strong>請求書</strong>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="doc_type" value="receipt">
+            <strong>領収書</strong>
+          </label>
+        </div>
+      </div>
+
+      <!-- 基本情報 -->
+      <div class="form-card">
+        <h2>1. 宛先・発行日</h2>
+        <div class="form-row">
+          <div class="form-group flex-2">
+            <label for="input-client">宛先（クライアント名） <span class="req">*</span></label>
+            <input type="text" id="input-client" placeholder="株式会社〇〇 御中" value="株式会社サンプルクライアント 御中">
+          </div>
+          <div class="form-group flex-1">
+            <label for="input-date">発行日</label>
+            <input type="date" id="input-date">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label for="input-doc-num">書類番号 (任意)</label>
+            <input type="text" id="input-doc-num" placeholder="INV-2026-001" value="INV-001">
+          </div>
+          <div class="form-group flex-1" id="group-due-date">
+            <label for="input-due-date">お支払期日</label>
+            <input type="date" id="input-due-date">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="input-subject">件名 (任意)</label>
+          <input type="text" id="input-subject" placeholder="〇〇業務委託料として" value="Webサイト制作およびデザイン業務委託料として">
+        </div>
+      </div>
+
+      <!-- 発行者情報 -->
+      <div class="form-card">
+        <h2>2. 発行者（自社・あなたの情報）</h2>
+        <div class="form-group">
+          <label for="input-sender-name">屋号・会社名・氏名 <span class="req">*</span></label>
+          <input type="text" id="input-sender-name" placeholder="山田 デザイン事務所 / 山田 太郎" value="デザインオフィス YAMADA / 山田 太郎">
+        </div>
+        <div class="form-group">
+          <label for="input-sender-invoice-id">インボイス登録番号 (T+13桁・任意)</label>
+          <input type="text" id="input-sender-invoice-id" placeholder="T1234567890123" value="T1234567890123">
+        </div>
+        <div class="form-group">
+          <label for="input-sender-address">住所</label>
+          <input type="text" id="input-sender-address" placeholder="〒150-0001 東京都渋谷区〇〇 1-2-3" value="〒150-0001 東京都渋谷区神南1丁目2-3">
+        </div>
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label for="input-sender-tel">電話番号</label>
+            <input type="tel" id="input-sender-tel" placeholder="03-1234-5678" value="090-1234-5678">
+          </div>
+          <div class="form-group flex-1">
+            <label for="input-sender-email">メール</label>
+            <input type="email" id="input-sender-email" placeholder="info@example.com" value="yamada@example.com">
+          </div>
+        </div>
+        <div class="form-group">
+          <label><input type="checkbox" id="check-stamp" checked> 電子印鑑（角印スタンプ）を表示する</label>
+        </div>
+      </div>
+
+      <!-- 明細項目 -->
+      <div class="form-card">
+        <div class="card-title-row">
+          <h2>3. 明細（品目・金額）</h2>
+          <button type="button" id="btn-add-item" class="btn-sm btn-outline">＋ 項目を追加</button>
+        </div>
+        <div id="items-list" class="dynamic-rows">
+          <!-- JSで自動生成 -->
+        </div>
+
+        <div class="totals-summary-box">
+          <div class="summary-line"><span>小計 (税抜):</span><strong id="label-subtotal">¥0</strong></div>
+          <div class="summary-line"><span>消費税 (10%対象):</span><span id="label-tax10">¥0</span></div>
+          <div class="summary-line"><span>消費税 (8%軽減対象):</span><span id="label-tax8">¥0</span></div>
+          <div class="summary-line total-main"><span>合計金額 (税込):</span><strong id="label-total">¥0</strong></div>
+        </div>
+      </div>
+
+      <!-- 振込先・備考 -->
+      <div class="form-card" id="card-bank-info">
+        <h2>4. お振込先情報・備考</h2>
+        <div class="form-group">
+          <label for="input-bank-info">振込先口座情報</label>
+          <textarea id="input-bank-info" rows="3" placeholder="〇〇銀行 〇〇支店&#10;普通 1234567&#10;口座名義: ヤマダ タロウ">三菱UFJ銀行 渋谷支店
+普通 1234567
+口座名義：ヤマダ タロウ</textarea>
+        </div>
+        <div class="form-group">
+          <label for="input-notes">備考</label>
+          <textarea id="input-notes" rows="2" placeholder="お振込手数料は貴社にてご負担願います。">お振込手数料は貴社にてご負担をお願い申し上げます。</textarea>
+        </div>
+      </div>
+
+      <!-- アクションボタン -->
+      <div class="action-buttons">
+        <button type="button" id="btn-download-invoice" class="btn btn-primary">
+          💾 書類画像を保存 (A4・高解像度PNG)
+        </button>
+        <button type="button" id="btn-show-guide" class="btn btn-info">
+          📖 コンビニでの印刷手順を見る
+        </button>
+      </div>
+
+      <!-- PR: クラウド会計・確定申告アフィリエイト枠 -->
+      <div class="affiliate-banner-box">
+        <div class="affiliate-header">
+          <span class="affiliate-badge">PR</span>
+          <span class="affiliate-label">個人事業主・フリーランス向け</span>
+        </div>
+        <div class="affiliate-body">
+          <p class="affiliate-title">📊 <strong>請求書作成・確定申告をスマホで自動化！</strong></p>
+          <p class="affiliate-desc">インボイス対応の請求書がワンタップで作れて、日々の帳簿付けや確定申告まで全自動化できるクラウド会計サービス（無料お試し可能）。</p>
+          <a href="https://px.a8.net/svt/ejp?a8mat=4BGAV0+28YZ1U+2DS2+BX3J6" class="affiliate-link-btn" target="_blank" rel="nofollow sponsored">
+            👉 無料で使えるクラウド会計ソフトをチェック
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 右側: リアルタイムプレビュー -->
+    <section class="panel-right">
+      <div class="preview-header">
+        <span class="preview-title" id="preview-doc-title">👁️ プレビュー (A4適格請求書)</span>
+        <span class="preview-page-info">A4 縦</span>
+      </div>
+      <div class="preview-container">
+        <canvas id="invoice-canvas"></canvas>
+      </div>
+    </section>
+  </main>
+
+  <!-- 印刷ガイドモーダル -->
+  <div id="guide-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>🖨️ コンビニで請求書・領収書を印刷する手順</h2>
+        <button id="modal-close" class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <ol class="guide-steps">
+          <li><strong>画像を保存</strong>: 「💾 書類画像を保存」を押して高解像度PNGを端末に保存します。</li>
+          <li><strong>コンビニアプリに登録</strong>: セブン-イレブン（マルチコピーアプリ）やファミリーマート・ローソン（ネットワークプリント）で登録。</li>
+          <li><strong>店舗で印刷</strong>: マルチコピー機で「普通紙プリント」➔「A4サイズ（白黒またはカラー）」で印刷します（1枚20円程度）。</li>
+          <li><strong>完成</strong>: 押印欄に実物の認印や角印を捺印して渡すことも可能です！</li>
+        </ol>
+      </div>
+      <div class="modal-footer">
+        <button id="modal-close-btn2" class="btn btn-primary">閉じる</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <p>© コンビニはがき名刺ジェネレーター 姉妹ツール | 完全クライアント処理（個人情報・金額はサーバーに送信されません）</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

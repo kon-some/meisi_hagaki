@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <!-- Google tag (gtag.js) - Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-R2P1RJMRG0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-R2P1RJMRG0');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>【完全無料】スマホで退職届・退職願ジェネレーター | 縦書き正式便箋・コンビニ印刷対応</title>
+  <meta name="description" content="スマホで簡単作成・即日印刷！縦書きの正式な退職届・退職願が登録不要・完全無料で作れるWebツール。B5・A4便箋フォーマット、コンビニ印刷（白黒20円）に完全対応。個人情報は外部に一切送信されません。">
+  <meta name="keywords" content="退職届, 退職願, 作成, スマホ, 無料, 縦書き, 便箋, コンビニ印刷, 即日, 文面, テンプレート">
+
+  <!-- OGP / SNS Card -->
+  <meta property="og:title" content="【完全無料】スマホで退職届・退職願ジェネレーター | 縦書き便箋・コンビニ印刷対応">
+  <meta property="og:description" content="正式な縦書き退職届・退職願がスマホで今すぐ作れる！登録不要・完全無料。コンビニ印刷対応。">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <!-- Google Fonts (Noto Serif JP 縦書き用) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 姉妹ツールナビゲーションバー -->
+  <nav class="sister-tools-nav">
+    <div class="nav-inner">
+      <span class="nav-label">📋 無料便利ツール:</span>
+      <a href="../" class="tool-link">📇 コンビニ名刺</a>
+      <a href="../resume/" class="tool-link">📄 履歴書作成</a>
+      <a href="../invoice/" class="tool-link">🧾 請求書・領収書</a>
+      <a href="./" class="tool-link active">✉️ 退職届・退職願</a>
+    </div>
+  </nav>
+
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <h1>✉️ スマホで退職届・退職願ジェネレーター</h1>
+        <span class="badge">正式縦書き・完全無料</span>
+      </div>
+      <div class="header-links">
+        <button type="button" id="btn-guide-modal" class="header-link-btn">📖 印刷＆提出手順</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- 左側: 入力フォーム -->
+    <section class="panel-left">
+      <!-- 種類選択 -->
+      <div class="form-card">
+        <h2>書類の種類</h2>
+        <div class="type-selector">
+          <label class="radio-label">
+            <input type="radio" name="doc_type" value="todoke" checked>
+            <strong>退職届</strong> <small>（確定・会社合意後）</small>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="doc_type" value="negai">
+            <strong>退職願</strong> <small>（事前に打診・お願い）</small>
+          </label>
+        </div>
+        <p class="tip-box">
+          💡 <strong>どっちを選べばいい？</strong><br>
+          ・すでに退職が承諾されている場合や、一方的に通告する場合は<strong>「退職届」</strong><br>
+          ・これから退職の合意を申し出る場合は<strong>「退職願」</strong>が一般的です。
+        </p>
+      </div>
+
+      <!-- 基本情報 -->
+      <div class="form-card">
+        <h2>1. 理由・退職希望日</h2>
+        <div class="form-group">
+          <label for="select-reason">退職の理由</label>
+          <select id="select-reason">
+            <option value="一身上の都合により">一身上の都合により（自己都合）</option>
+            <option value="会社都合により">会社都合により（倒産・整理解雇等）</option>
+            <option value="契約期間満了により">契約期間満了により</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label for="input-retire-date">退職年月日 <span class="req">*</span></label>
+            <input type="date" id="input-retire-date">
+          </div>
+          <div class="form-group flex-1">
+            <label for="input-submit-date">提出年月日 <span class="req">*</span></label>
+            <input type="date" id="input-submit-date">
+          </div>
+        </div>
+      </div>
+
+      <!-- 提出者情報 -->
+      <div class="form-card">
+        <h2>2. あなたの情報（提出者）</h2>
+        <div class="form-group">
+          <label for="input-dept">所属部署・役職 (任意)</label>
+          <input type="text" id="input-dept" placeholder="営業部 第一営業課" value="営業部 営業課">
+        </div>
+        <div class="form-group">
+          <label for="input-my-name">氏名 <span class="req">*</span></label>
+          <input type="text" id="input-my-name" placeholder="山田 太郎" value="山田 太郎">
+        </div>
+        <div class="form-group">
+          <label><input type="checkbox" id="check-stamp" checked> 電子印鑑（認印スタンプ）を表示する</label>
+          <small class="tip">※印刷後に手元の朱肉で本物の認印を押す場合はチェックを外してください。</small>
+        </div>
+      </div>
+
+      <!-- 宛先企業情報 -->
+      <div class="form-card">
+        <h2>3. 提出先（会社・代表者）</h2>
+        <div class="form-group">
+          <label for="input-company-name">会社名（正式名称） <span class="req">*</span></label>
+          <input type="text" id="input-company-name" placeholder="株式会社〇〇" value="株式会社サンプルコーポレーション">
+        </div>
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label for="input-boss-title">代表者の役職 <span class="req">*</span></label>
+            <input type="text" id="input-boss-title" placeholder="代表取締役" value="代表取締役">
+          </div>
+          <div class="form-group flex-2">
+            <label for="input-boss-name">代表者の氏名 <span class="req">*</span></label>
+            <input type="text" id="input-boss-name" placeholder="佐藤 一郎 殿" value="佐藤 一郎 殿">
+          </div>
+        </div>
+      </div>
+
+      <!-- アクションボタン -->
+      <div class="action-buttons">
+        <button type="button" id="btn-download" class="btn btn-primary">
+          💾 便箋画像を保存 (B5/A4対応・高解像度PNG)
+        </button>
+        <button type="button" id="btn-show-guide" class="btn btn-info">
+          📖 コンビニ印刷＆白封筒の書き方を見る
+        </button>
+      </div>
+
+      <!-- PR: 退職代行高単価アフィリエイト枠 -->
+      <div class="affiliate-banner-box">
+        <div class="affiliate-header">
+          <span class="affiliate-badge">PR</span>
+          <span class="affiliate-label">退職で悩んでいる方へ</span>
+        </div>
+        <div class="affiliate-body">
+          <p class="affiliate-title">🛡️ <strong>もう会社に行きたくない…上司と話さず即日退職！</strong></p>
+          <p class="affiliate-desc">「上司に引き止められる」「自分から言い出せない」という場合でも、LINEで相談して即日会社に行かずに退職できる安心の退職代行サービス。</p>
+          <a href="https://px.a8.net/svt/ejp?a8mat=4BGAV0+28YZ1U+2DS2+BX3J6" class="affiliate-link-btn" target="_blank" rel="nofollow sponsored">
+            👉 LINE無料相談・退職代行サービスをチェック
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 右側: リアルタイムプレビュー -->
+    <section class="panel-right">
+      <div class="preview-header">
+        <span class="preview-title" id="preview-doc-title">👁️ プレビュー (正式便箋 縦書き)</span>
+        <span class="preview-page-info">B5 / A4 対応</span>
+      </div>
+      <div class="preview-container">
+        <canvas id="taishoku-canvas"></canvas>
+      </div>
+    </section>
+  </main>
+
+  <!-- 印刷＆提出ガイドモーダル -->
+  <div id="guide-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>✉️ 印刷・白封筒の書き方・提出ガイド</h2>
+        <button id="modal-close" class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <ol class="guide-steps">
+          <li><strong>コンビニで印刷</strong>: 「普通紙プリント」➔「白黒（20円）」でA4またはB5用紙に印刷します。</li>
+          <li><strong>捺印</strong>: 電子印鑑をOFFにした場合は、氏名の下に朱肉で認印を押します。</li>
+          <li><strong>白封筒を用意</strong>: 郵便番号枠のない「白い無地の封筒（長形4号または3号）」を用意します。</li>
+          <li><strong>封筒の表面</strong>: 中央に縦書きで「退職届」（または「退職願」）と黒ボールペンで記入。</li>
+          <li><strong>封筒の裏面</strong>: 左下に縦書きで「所属部署」と「氏名」を記入。</li>
+          <li><strong>折り方</strong>: 文面が内側になるように下から1/3、上から1/3の「三つ折り」にして封入します。</li>
+        </ol>
+      </div>
+      <div class="modal-footer">
+        <button id="modal-close-btn2" class="btn btn-primary">閉じる</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <p>© コンビニはがき名刺ジェネレーター 姉妹ツール | 完全クライアント処理（個人情報はサーバーに一切送信されません）</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

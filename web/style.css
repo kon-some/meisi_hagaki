@@ -2048,3 +2048,88 @@ footer {
   color: #64748b;
   line-height: 1.2;
 }
+
+/* ========================================================
+   姉妹ツールナビゲーション & バーチャルオフィスPR
+   ======================================================== */
+.sister-tools-nav {
+  background: #0f172a;
+  padding: 8px 16px;
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+.sister-tools-nav .nav-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sister-tools-nav .nav-label {
+  color: #94a3b8;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.sister-tools-nav .tool-link {
+  color: #e2e8f0;
+  text-decoration: none;
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.sister-tools-nav .tool-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.sister-tools-nav .tool-link.active {
+  background: #2563eb;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* 住所欄直下のバーチャルオフィス案内 */
+.virtual-office-tip {
+  margin-top: 6px;
+  padding: 6px 10px;
+  background: #f0fdf4;
+  border: 1px dashed #86efac;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: #166534;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+}
+
+.virtual-office-tip .vo-icon {
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.virtual-office-tip .vo-text {
+  flex: 1 1 200px;
+}
+
+.virtual-office-tip .vo-link {
+  color: #15803d;
+  font-weight: 700;
+  text-decoration: underline;
+  white-space: nowrap;
+}
+
+.virtual-office-tip .vo-link:hover {
+  color: #166534;
+}
+

@@ -1,5 +1,5 @@
 // Service Worker: コンビニはがき名刺ジェネレーター (完全オフライン対応PWA)
-const CACHE_NAME = "hagaki-meishi-v1";
+const CACHE_NAME = "hagaki-meishi-v2";
 const ASSETS_TO_CACHE = [
   "./",
   "./index.html",
